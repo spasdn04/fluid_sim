@@ -40,19 +40,33 @@ class Particle():
     def circle(self):
         for i in range(self.density):
             pg.draw.circle(window, self.color, (self.position[0]+i*2*self.radius, self.position[1]), self.radius)
+    
+    def collision(self):
+        positionx = self.position[0] + self.radius
+        positiony = self.position[1] + self.radius
+        
+        if positionx <= 20:
+            self.velocity[0] *= -1
+        
+        if positionx >= 390:
+            self.velocity[0] *= -1
             
+        if positiony >= 390:
+            self.velocity[1] *= -1
+            
+        if positiony <= 20:
+            self.velocity[1] *= -1
 
     def movement(self):
         new_position = []
         for i in range(len(self.position)):
             new_position.append(self.position[i] + self.velocity[i] * self.time + (self.aceleration[i] * self.time**2) / 2)
         self.position = tuple(new_position)
+    
 
 box = BoxSimulation(400, 400, RED)
-particle = Particle([rd.randint(0, 400), rd.randint(0, 200)], (0,2), (0, 3), 4, BLACK, 10, 1)
+particle = Particle([rd.randint(0, 400), rd.randint(0, 200)], [0,0], [0, gravity], 1, BLACK, 10, 1)
 
-def colission():
-    pass
 
 run = True
 while run:
@@ -70,6 +84,8 @@ while run:
     
     particle.circle()
     particle.movement()
+    particle.collision()
+    print(particle.position)
     
     pg.display.flip()
 pg.quit()

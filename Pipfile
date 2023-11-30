@@ -7,6 +7,12 @@ name = "pypi"
 pygame = "*"
 numpy = "*"
 matplotlib = "*"
+jax = "*"
+cmasher = "*"
+tqdm = "*"
+jaxlib = "*"
+heat = "*"
+vpython = "*"
 
 [dev-packages]
 
